@@ -96,7 +96,7 @@
         @keyframes spinReverse { 100% { transform: rotate(-360deg); } }
         @keyframes pulseGlow { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
 
-        /* Floating Badges */
+        /* Floating Badges - ADJUSTED TO CLEAR THE FACE */
         .avatar-badge {
             position: absolute; background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -231,7 +231,6 @@
                 </div>
 
                 <div class="lg:w-2/5 flex justify-center reveal relative">
-                    
                     <div class="avatar-container">
                         <div class="avatar-glow"></div>
                         <div class="avatar-ring-outer"></div>
@@ -261,7 +260,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
 
             </div>
@@ -519,7 +517,7 @@
                         </div>
                     </div>
 
-                    <form id="contact-form" class="lg:col-span-3 space-y-5">
+                    <form id="contact-form" class="lg:col-span-3 space-y-5 relative">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <input type="text" id="name" placeholder="Your Name or Company" required
                                 class="w-full bg-[#030509] border border-slate-800 rounded-xl px-5 py-4 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all font-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
@@ -531,8 +529,10 @@
                         <textarea id="message" rows="5" placeholder="What current challenges or systems would you like to improve?" required
                             class="w-full bg-[#030509] border border-slate-800 rounded-xl px-5 py-4 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all font-medium resize-none shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"></textarea>
                         
-                        <button type="submit" class="w-full btn-solid py-4 mt-2 text-base">
-                            Send Message <i class="fas fa-paper-plane ml-3"></i>
+                        <div id="form-status" class="hidden text-sm font-bold text-center mt-3 p-3 rounded-xl transition-all duration-300"></div>
+
+                        <button type="submit" id="submit-btn" class="w-full btn-solid py-4 mt-2 text-base">
+                            <span id="btn-text">Send Message</span> <i id="btn-icon" class="fas fa-paper-plane ml-3"></i>
                         </button>
                     </form>
                 </div>
@@ -595,7 +595,7 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        // Auto-close mobile menu when a link is clicked
+        // Auto-close mobile menu
         document.querySelectorAll('#mobile-menu .nav-link, #mobile-menu .btn-solid').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('mobile-menu').classList.add('hidden');
@@ -652,16 +652,65 @@
         }
         window.addEventListener('scroll', activateNavLink);
 
-        // Form Submission
-        document.getElementById('contact-form')?.addEventListener('submit', function (e) {
+        // ==========================================
+        // WEBHOOK FORM SUBMISSION LOGIC
+        // ==========================================
+        document.getElementById('contact-form')?.addEventListener('submit', async function (e) {
             e.preventDefault();
+            
             const name = document.getElementById('name')?.value;
             const email = document.getElementById('email')?.value;
             const message = document.getElementById('message')?.value;
+            
+            const btnText = document.getElementById('btn-text');
+            const btnIcon = document.getElementById('btn-icon');
+            const statusDiv = document.getElementById('form-status');
+
             if (name && email && message) {
-                const mailtoLink = `mailto:abdulmanan.swe@gmail.com?subject=System Audit Request: ${name}&body=Name: ${name}%0AEmail: ${email}%0A%0ABottlenecks:%0A${message}`;
-                window.location.href = mailtoLink;
-                this.reset();
+                // Change Button to Loading State
+                btnText.textContent = "Sending...";
+                btnIcon.className = "fas fa-spinner fa-spin ml-3";
+                statusDiv.classList.add('hidden');
+                
+                try {
+                    // 👇 REPLACE THIS URL WITH YOUR n8n OR GHL WEBHOOK URL 👇
+                    const WEBHOOK_URL = "http://localhost:5678/webhook-test/portfolio-contact"; 
+                    
+                    const response = await fetch(WEBHOOK_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            name: name, 
+                            email: email, 
+                            message: message, 
+                            source: "Portfolio Website" 
+                        })
+                    });
+
+                    // Note: If testing locally with n8n/make, you might get CORS errors unless configured properly.
+                    // Usually, webhooks return a 200 status. We check for success here.
+                    if (response.ok || response.type === 'opaque') {
+                        statusDiv.textContent = "Message sent successfully! I will be in touch shortly.";
+                        statusDiv.className = "text-sm font-bold text-center mt-3 p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 block";
+                        this.reset();
+                    } else {
+                        throw new Error('Webhook failed');
+                    }
+                } catch (error) {
+                    // If the webhook fails (or you haven't put your URL in yet), it fails gracefully.
+                    console.error("Form submission error:", error);
+                    statusDiv.innerHTML = "Oops! The automation is being updated. <br/> Please email me directly at <a href='mailto:abdulmanan.swe@gmail.com' class='underline'>abdulmanan.swe@gmail.com</a>";
+                    statusDiv.className = "text-sm font-bold text-center mt-3 p-3 rounded-xl bg-red-500/10 text-red-400 border border-red-500/30 block";
+                } finally {
+                    // Reset Button State
+                    btnText.textContent = "Send Message";
+                    btnIcon.className = "fas fa-paper-plane ml-3";
+                    
+                    // Hide status message after 8 seconds
+                    setTimeout(() => {
+                        statusDiv.classList.add('hidden');
+                    }, 8000);
+                }
             }
         });
 
