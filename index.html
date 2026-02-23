@@ -91,7 +91,7 @@
         @keyframes spinReverse { 100% { transform: rotate(-360deg); } }
         @keyframes pulseGlow { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
 
-        /* Floating Badges */
+        /* Floating Badges - Pushed further left and right so they don't cover the face */
         .avatar-badge {
             position: absolute; background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -101,8 +101,8 @@
         }
         .avatar-badge:hover { transform: scale(1.05) translateY(-5px) !important; border-color: rgba(34, 211, 238, 0.6); }
         
-        .badge-left { top: 10%; left: -25%; animation: floatBadge 6s ease-in-out infinite; }
-        .badge-right { bottom: 10%; right: -25%; animation: floatBadge 7s ease-in-out infinite reverse; }
+        .badge-left { top: 10%; left: -35%; animation: floatBadge 6s ease-in-out infinite; }
+        .badge-right { bottom: 10%; right: -35%; animation: floatBadge 7s ease-in-out infinite reverse; }
 
         @keyframes floatBadge { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
 
@@ -144,8 +144,8 @@
            ========================================= */
         @media (max-width: 1024px) {
             .avatar-container { width: 300px; height: 300px; margin-top: 30px; margin-bottom: 20px; }
-            .badge-left { top: -5%; left: -10%; }
-            .badge-right { bottom: -5%; right: -10%; }
+            .badge-left { top: -5%; left: -15%; }
+            .badge-right { bottom: -5%; right: -15%; }
         }
         @media (max-width: 768px) {
             .avatar-container { width: 200px; height: 200px; margin-top: 40px; margin-bottom: 40px; }
@@ -429,7 +429,7 @@
                             My daily focus and true expertise lie 100% in <strong class="text-white font-medium">GoHighLevel and business automation</strong>. However, having a formal degree in Computer Science gives me a unique advantage over standard CRM setup agencies.
                         </p>
                         <p>
-                            While I don't build custom software from scratch as my main service, my hands-on experience with <strong class="text-white font-medium">Python, AWS, and AI APIs</strong> means I actually understand what's happening under the hood. When a simple Zapier connection isn't enough, I know how to use custom webhooks and advanced logic to make your systems talk to each other perfectly.
+                            While I don't build custom software from scratch as my main service, my hands-on experience with <strong class="text-white font-medium">Python, AWS, and AI APIs</strong> means I actually understand what's happening under the hood. When a simple Zapier connection isnt enough, I know how to use custom webhooks and advanced logic to make your systems talk to each other perfectly.
                         </p>
                     </div>
                     
@@ -504,7 +504,7 @@
                             </div>
                             <div class="flex items-center space-x-4">
                                 <i class="fas fa-map-marker-alt text-xl text-purple-400 w-6 text-center"></i>
-                                <span class="text-slate-200 text-sm sm:text-base font-medium"></span>
+                                <span class="text-slate-200 text-sm sm:text-base font-medium">Dallas-Fort Worth Metroplex</span>
                             </div>
                         </div>
                     </div>
@@ -686,7 +686,7 @@
                 statusDiv.classList.add('hidden');
                 
                 try {
-                    // 👇 REPLACE THIS URL WITH YOUR LIVE GHL WEBHOOK URL 👇
+                    // 👇 YOUR LIVE GHL WEBHOOK URL 👇
                     const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/2rr1ZMXoj0KiRr0DpL4t/webhook-trigger/960910d0-0091-4c9d-bd41-5a36472d5ec2"; 
                     
                     const response = await fetch(WEBHOOK_URL, {
