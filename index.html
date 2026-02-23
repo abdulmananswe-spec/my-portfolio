@@ -15,7 +15,7 @@
     <style>
         /* Base Reset & Optimization */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #030509; color: #F8FAFC; overflow-x: hidden; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+        body { background-color: #030509; color: #F8FAFC; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
         
         /* Custom Premium Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
@@ -57,7 +57,6 @@
             margin: 0 auto; z-index: 10;
         }
 
-        /* 1. Deep Pulsating Glow */
         .avatar-glow {
             position: absolute; inset: -20px; border-radius: 50%;
             background: conic-gradient(from 0deg, rgba(34, 211, 238, 0.4), rgba(168, 85, 247, 0.4), rgba(34, 211, 238, 0.4));
@@ -65,25 +64,21 @@
             animation: spin 5s linear infinite, pulseGlow 4s ease-in-out infinite; z-index: -3;
         }
 
-        /* 2. Clockwise Solid Gradient Ring */
         .avatar-ring-outer {
             position: absolute; inset: -6px; border-radius: 50%;
             background: conic-gradient(from 0deg, transparent 0%, #22D3EE 20%, #A855F7 50%, transparent 80%);
             animation: spin 4s linear infinite; z-index: -2;
         }
 
-        /* 3. Counter-Clockwise Orbiting Dashed Ring */
         .avatar-ring-inner {
             position: absolute; inset: -2px; border-radius: 50%;
             border: 2px dashed rgba(34, 211, 238, 0.6);
             animation: spinReverse 12s linear infinite; z-index: 15; pointer-events: none;
         }
 
-        /* 4. Perfect Circular Image Mask */
         .avatar-image-wrapper {
             width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
-            border: 8px solid #030509; /* Matches background to create negative space */
-            background-color: #0F172A; position: relative; z-index: 10;
+            border: 8px solid #030509; background-color: #0F172A; position: relative; z-index: 10;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
@@ -96,20 +91,20 @@
         @keyframes spinReverse { 100% { transform: rotate(-360deg); } }
         @keyframes pulseGlow { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
 
-        /* Floating Badges - ADJUSTED TO CLEAR THE FACE */
+        /* Floating Badges */
         .avatar-badge {
             position: absolute; background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2);
             padding: 12px 18px; border-radius: 20px; display: flex; align-items: center; gap: 14px;
             z-index: 20; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); transition: all 0.3s ease;
-            white-space: nowrap; /* Prevents text from breaking into multiple lines */
+            white-space: nowrap; 
         }
         .avatar-badge:hover { transform: scale(1.05) translateY(-5px) !important; border-color: rgba(34, 211, 238, 0.6); }
         
-        .badge-left { top: 0%; left: -30%; animation: floatBadge 6s ease-in-out infinite; }
-        .badge-right { bottom: 5%; right: -25%; animation: floatBadge 7s ease-in-out infinite reverse; }
+        .badge-left { top: 10%; left: -25%; animation: floatBadge 6s ease-in-out infinite; }
+        .badge-right { bottom: 10%; right: -25%; animation: floatBadge 7s ease-in-out infinite reverse; }
 
-        @keyframes floatBadge { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+        @keyframes floatBadge { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
 
         /* Premium Glass Cards */
         .b2b-card { 
@@ -118,17 +113,19 @@
             border-radius: 24px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; z-index: 1; 
             box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        .b2b-card:hover { border-color: rgba(34, 211, 238, 0.3); transform: translateY(-8px); box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(34, 211, 238, 0.1); }
+        .b2b-card:hover { border-color: rgba(34, 211, 238, 0.2); transform: translateY(-4px); box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.4); }
         
         /* Tech Tags */
         .tech-pill { background: rgba(15, 23, 42, 0.6); color: #22D3EE; border: 1px solid rgba(34, 211, 238, 0.15); border-radius: 10px; padding: 8px 16px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; display: inline-flex; align-items: center; transition: all 0.3s ease; box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); }
         .tech-pill:hover { background: rgba(34, 211, 238, 0.1); border-color: rgba(34, 211, 238, 0.6); transform: translateY(-3px); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 5px 15px rgba(34, 211, 238, 0.2); }
         
-        /* Shimmering Button */
+        /* Buttons */
         .btn-solid { background: linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #3B82F6 100%); background-size: 200% 200%; color: #ffffff; font-weight: 800; border-radius: 12px; transition: all 0.4s ease; text-transform: uppercase; letter-spacing: 1px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3); border: 1px solid rgba(255,255,255,0.2); animation: bgShift 4s ease infinite; }
         .btn-solid:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(168, 85, 247, 0.5); }
         .btn-outline { background: transparent; color: #F8FAFC; font-weight: 800; border-radius: 12px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.15); display: inline-flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #22D3EE; color: #22D3EE; box-shadow: inset 0 0 20px rgba(34, 211, 238, 0.1); }
+        .btn-gradient-form { background: linear-gradient(to right, #9333ea, #3b82f6); color: white; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3); }
+        .btn-gradient-form:hover { box-shadow: 0 15px 35px rgba(147, 51, 234, 0.5); transform: translateY(-2px); }
 
         @keyframes bgShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
@@ -142,20 +139,27 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
-        /* Mobile Specific Responsive Tweaks */
+        /* =========================================
+           MOBILE RESPONSIVE FIXES
+           ========================================= */
         @media (max-width: 1024px) {
-            .avatar-container { width: 300px; height: 300px; margin-top: 40px; margin-bottom: 20px; }
-            .badge-left { top: -5%; left: -5%; }
-            .badge-right { bottom: 0%; right: -5%; }
+            .avatar-container { width: 300px; height: 300px; margin-top: 30px; margin-bottom: 20px; }
+            .badge-left { top: -5%; left: -10%; }
+            .badge-right { bottom: -5%; right: -10%; }
         }
         @media (max-width: 768px) {
-            .avatar-container { width: 230px; height: 230px; margin-top: 50px; margin-bottom: 30px; }
-            .avatar-badge { padding: 8px 12px; border-radius: 14px; gap: 10px; }
-            .avatar-badge i { font-size: 1rem; }
-            .avatar-badge .text-\[15px\] { font-size: 13px; }
-            .avatar-badge .text-\[9px\] { font-size: 8px; }
-            .badge-left { top: -10%; left: -10%; }
-            .badge-right { bottom: -10%; right: -10%; }
+            .avatar-container { width: 200px; height: 200px; margin-top: 40px; margin-bottom: 40px; }
+            .avatar-badge { padding: 8px 12px; border-radius: 14px; gap: 8px; }
+            .avatar-badge i { font-size: 0.875rem; }
+            .avatar-badge .text-\[15px\] { font-size: 11px; }
+            .avatar-badge .text-\[9px\] { font-size: 7px; }
+            /* Pull badges inward so they don't break the mobile screen width */
+            .badge-left { top: -10%; left: -5%; }
+            .badge-right { bottom: -10%; right: -5%; }
+            
+            /* Typography adjustments for mobile readability */
+            h1.text-5xl { font-size: 2.75rem !important; line-height: 1.2 !important; }
+            .mobile-text-center { text-align: center; }
         }
     </style>
 </head>
@@ -198,7 +202,7 @@
         </div>
     </nav>
 
-    <section id="home" class="bg-obsidian min-h-screen flex items-center relative overflow-hidden pt-28 pb-20">
+    <section id="home" class="bg-obsidian min-h-screen flex items-center relative overflow-hidden pt-32 pb-16 lg:pt-28 lg:pb-20">
         <div class="bg-grid"></div>
         <div class="hero-glow"></div>
         <div class="hero-glow-2"></div>
@@ -206,31 +210,31 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
             <div class="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-8">
                 
-                <div class="lg:w-3/5 text-center lg:text-left reveal">
-                    <span class="bg-purple-900/20 text-purple-300 border border-purple-500/30 px-5 py-2.5 rounded-full text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-8 inline-flex items-center shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+                <div class="lg:w-3/5 text-center lg:text-left reveal mobile-text-center">
+                    <span class="bg-purple-900/20 text-purple-300 border border-purple-500/30 px-5 py-2.5 rounded-full text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-6 lg:mb-8 inline-flex items-center shadow-[0_0_20px_rgba(168,85,247,0.15)]">
                         <span class="w-2 h-2 rounded-full bg-cyan-400 mr-3 animate-pulse shadow-[0_0_10px_#22D3EE]"></span> Open to New Projects & Roles
                     </span>
                     
-                    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black mb-6 leading-[1.05] tracking-tight text-white drop-shadow-xl">
-                        I build structured CRMs & <br />
+                    <h1 class="text-5xl lg:text-[5.5rem] font-black mb-6 leading-tight tracking-tight text-white drop-shadow-xl">
+                        I build structured CRMs & <br class="hidden lg:block"/>
                         <span class="text-gradient-primary">Automated Workflows.</span>
                     </h1>
 
-                    <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                    <p class="text-base sm:text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
                         I build custom GoHighLevel workflows and AI integrations tailored to your actual business processes. My goal is to reduce manual data entry and create reliable systems that simply work.
                     </p>
 
-                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-5">
-                        <a href="#contact" class="btn-solid px-9 py-4 text-sm sm:text-base">
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="#contact" class="btn-solid px-9 py-4 text-sm sm:text-base w-full sm:w-auto">
                             Discuss Your Project <i class="fas fa-arrow-right ml-3"></i>
                         </a>
-                        <a href="#capabilities" class="btn-outline px-9 py-4 text-sm sm:text-base">
+                        <a href="#capabilities" class="btn-outline px-9 py-4 text-sm sm:text-base w-full sm:w-auto mt-2 sm:mt-0">
                             View My Capabilities <i class="fas fa-arrow-down ml-3"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="lg:w-2/5 flex justify-center reveal relative">
+                <div class="lg:w-2/5 flex justify-center reveal relative w-full mt-8 lg:mt-0">
                     <div class="avatar-container">
                         <div class="avatar-glow"></div>
                         <div class="avatar-ring-outer"></div>
@@ -240,8 +244,8 @@
                             <img src="./portfolio.png" alt="Abdul Manan" class="profile-img">
                         </div>
                         
-                        <div class="avatar-badge badge-left flex">
-                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/30 text-cyan-400 text-lg md:text-xl shadow-[inset_0_0_15px_rgba(34,211,238,0.2)]">
+                        <div class="avatar-badge badge-left">
+                            <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/30 text-cyan-400 shadow-[inset_0_0_15px_rgba(34,211,238,0.2)]">
                                 <i class="fas fa-code"></i>
                             </div>
                             <div class="text-left">
@@ -250,8 +254,8 @@
                             </div>
                         </div>
                         
-                        <div class="avatar-badge badge-right flex">
-                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-500/10 flex items-center justify-center border border-purple-500/30 text-purple-400 text-lg md:text-xl shadow-[inset_0_0_15px_rgba(168,85,247,0.2)]">
+                        <div class="avatar-badge badge-right">
+                            <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-purple-500/10 flex items-center justify-center border border-purple-500/30 text-purple-400 shadow-[inset_0_0_15px_rgba(168,85,247,0.2)]">
                                 <i class="fas fa-project-diagram"></i>
                             </div>
                             <div class="text-left">
@@ -266,69 +270,69 @@
         </div>
     </section>
 
-    <section id="capabilities" class="py-32 bg-[#030509] border-t border-slate-800/50 relative">
+    <section id="capabilities" class="py-20 lg:py-32 bg-[#030509] border-t border-slate-800/50 relative">
         <div class="container mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+            <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-20 reveal">
                 <h2 class="text-xs font-black text-cyan-400 uppercase tracking-[0.2em] mb-4">My Expertise</h2>
-                <h3 class="text-4xl sm:text-5xl font-black text-white tracking-tight text-gradient-secondary">Core Capabilities</h3>
-                <p class="text-slate-400 mt-6 text-base font-light">End-to-end B2B solutions built for reliability, clear data flow, and sustainable business operations.</p>
+                <h3 class="text-3xl sm:text-4xl sm:text-5xl font-black text-white tracking-tight text-gradient-secondary">Core Capabilities</h3>
+                <p class="text-slate-400 mt-4 lg:mt-6 text-sm sm:text-base font-light leading-relaxed">End-to-end B2B solutions built for reliability, clear data flow, and sustainable business operations.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 lg:gap-10">
-                <div class="b2b-card p-10 md:p-12 reveal">
-                    <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(99,102,241,0.15)]">
-                        <i class="fas fa-layer-group text-3xl text-indigo-400"></i>
+            <div class="grid md:grid-cols-2 gap-6 lg:gap-10">
+                <div class="b2b-card p-6 md:p-10 lg:p-12 reveal">
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-6 lg:mb-8 shadow-[0_0_30px_rgba(99,102,241,0.15)]">
+                        <i class="fas fa-layer-group text-2xl lg:text-3xl text-indigo-400"></i>
                     </div>
-                    <h4 class="text-2xl font-bold text-white mb-4">CRM Architecture</h4>
-                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-8">
+                    <h4 class="text-xl lg:text-2xl font-bold text-white mb-4">CRM Architecture</h4>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-6 lg:mb-8">
                         Comprehensive CRM audits, cleanups, and system optimization. I design clear sales pipelines, strategic lead tagging, automated task follow-ups, and reliable SaaS Agency snapshots.
                     </p>
-                    <ul class="text-slate-300 text-sm space-y-4 font-medium">
+                    <ul class="text-slate-300 text-sm space-y-3 lg:space-y-4 font-medium">
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> CRM Audits & Cleanups</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Sub-account Configuration</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Strategic Lead Tagging</li>
                     </ul>
                 </div>
 
-                <div class="b2b-card p-10 md:p-12 reveal" style="transition-delay: 100ms;">
-                    <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(6,182,212,0.15)]">
-                        <i class="fas fa-brain text-3xl text-cyan-400"></i>
+                <div class="b2b-card p-6 md:p-10 lg:p-12 reveal" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-6 lg:mb-8 shadow-[0_0_30px_rgba(6,182,212,0.15)]">
+                        <i class="fas fa-brain text-2xl lg:text-3xl text-cyan-400"></i>
                     </div>
-                    <h4 class="text-2xl font-bold text-white mb-4">Practical AI Solutions</h4>
-                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-8">
+                    <h4 class="text-xl lg:text-2xl font-bold text-white mb-4">Practical AI Solutions</h4>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-6 lg:mb-8">
                         Integrate practical AI directly into your GoHighLevel workspace. I build AI assistants for appointment setting, FAQ handling, and real-time lead qualification to support your team.
                     </p>
-                    <ul class="text-slate-300 text-sm space-y-4 font-medium">
+                    <ul class="text-slate-300 text-sm space-y-3 lg:space-y-4 font-medium">
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> AI Booking Assistants</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Contextual Lead Qualification</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> SMS & Voice Implementations</li>
                     </ul>
                 </div>
 
-                <div class="b2b-card p-10 md:p-12 reveal">
-                    <div class="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(59,130,246,0.15)]">
-                        <i class="fas fa-network-wired text-3xl text-blue-400"></i>
+                <div class="b2b-card p-6 md:p-10 lg:p-12 reveal">
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-6 lg:mb-8 shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+                        <i class="fas fa-network-wired text-2xl lg:text-3xl text-blue-400"></i>
                     </div>
-                    <h4 class="text-2xl font-bold text-white mb-4">Advanced Integrations</h4>
-                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-8">
+                    <h4 class="text-xl lg:text-2xl font-bold text-white mb-4">Advanced Integrations</h4>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-6 lg:mb-8">
                         Connecting GoHighLevel with your existing software stack. I resolve data silos by building seamless integrations using custom APIs, Webhooks, and platforms like n8n and Make.
                     </p>
-                    <ul class="text-slate-300 text-sm space-y-4 font-medium">
+                    <ul class="text-slate-300 text-sm space-y-3 lg:space-y-4 font-medium">
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Zapier, Make & n8n Workflows</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Custom API & Webhook Creation</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> A2P 10DLC & SMS Compliance</li>
                     </ul>
                 </div>
 
-                <div class="b2b-card p-10 md:p-12 reveal" style="transition-delay: 100ms;">
-                    <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(168,85,247,0.15)]">
-                        <i class="fas fa-laptop-code text-3xl text-purple-400"></i>
+                <div class="b2b-card p-6 md:p-10 lg:p-12 reveal" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-6 lg:mb-8 shadow-[0_0_30px_rgba(168,85,247,0.15)]">
+                        <i class="fas fa-laptop-code text-2xl lg:text-3xl text-purple-400"></i>
                     </div>
-                    <h4 class="text-2xl font-bold text-white mb-4">Clean UI & Funnels</h4>
-                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-8">
+                    <h4 class="text-xl lg:text-2xl font-bold text-white mb-4">Clean UI & Funnels</h4>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-6 lg:mb-8">
                         Building clean, user-friendly interfaces. From highly functional landing pages and branded client portals to fully integrated booking calendars and membership communities.
                     </p>
-                    <ul class="text-slate-300 text-sm space-y-4 font-medium">
+                    <ul class="text-slate-300 text-sm space-y-3 lg:space-y-4 font-medium">
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Landing Pages & Funnels</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Branded Course Memberships</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-cyan-400 mr-3 text-lg"></i> Client Dashboards</li>
@@ -338,129 +342,130 @@
         </div>
     </section>
 
-    <section id="process" class="py-32 bg-[#020306] border-t border-slate-800/50">
+    <section id="process" class="py-20 lg:py-32 bg-[#020306] border-t border-slate-800/50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-12 max-w-5xl">
-            <div class="text-center mb-24 reveal">
+            <div class="text-center mb-16 lg:mb-24 reveal">
                 <h2 class="text-xs font-black text-cyan-400 uppercase tracking-[0.2em] mb-4">My Approach</h2>
-                <h3 class="text-4xl sm:text-5xl font-black text-white tracking-tight text-gradient-secondary">How I Work</h3>
+                <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight text-gradient-secondary">How I Work</h3>
             </div>
 
-            <div class="relative border-l-2 border-slate-800 ml-6 md:ml-1/2 md:border-l-0 reveal">
+            <div class="relative border-l-2 border-slate-800 ml-4 sm:ml-6 md:ml-1/2 md:border-l-0 reveal">
                 <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500/50 to-purple-500/10"></div>
 
-                <div class="relative flex flex-col md:flex-row items-center mb-20 w-full group">
-                    <div class="md:w-1/2 md:pr-16 text-left md:text-right ml-10 md:ml-0 transition-transform duration-300 group-hover:-translate-x-2">
-                        <h4 class="text-2xl font-bold text-white mb-3">1. Analyze & Define</h4>
-                        <p class="text-slate-400 text-base leading-relaxed">We start by mapping out your current sales flow and conversion goals to identify exactly where automation can save time and reduce errors.</p>
+                <div class="relative flex flex-col md:flex-row items-start md:items-center mb-16 lg:mb-20 w-full group">
+                    <div class="md:w-1/2 md:pr-16 text-left md:text-right ml-8 sm:ml-10 md:ml-0 transition-transform duration-300 md:group-hover:-translate-x-2">
+                        <h4 class="text-xl lg:text-2xl font-bold text-white mb-2 lg:mb-3">1. Analyze & Define</h4>
+                        <p class="text-slate-400 text-sm lg:text-base leading-relaxed">We start by mapping out your current sales flow and conversion goals to identify exactly where automation can save time and reduce errors.</p>
                     </div>
                     <div class="absolute left-[-9px] md:left-1/2 w-5 h-5 rounded-full bg-cyan-400 transform md:-translate-x-1/2 flex items-center justify-center z-10 shadow-[0_0_20px_rgba(34,211,238,0.8)] group-hover:scale-150 transition-transform duration-300"></div>
                     <div class="md:w-1/2 md:pl-16 hidden md:block"></div>
                 </div>
 
-                <div class="relative flex flex-col md:flex-row items-center mb-20 w-full group">
+                <div class="relative flex flex-col md:flex-row items-start md:items-center mb-16 lg:mb-20 w-full group">
                     <div class="md:w-1/2 md:pr-16 hidden md:block"></div>
                     <div class="absolute left-[-9px] md:left-1/2 w-5 h-5 rounded-full bg-purple-400 transform md:-translate-x-1/2 flex items-center justify-center z-10 shadow-[0_0_20px_rgba(168,85,247,0.8)] group-hover:scale-150 transition-transform duration-300"></div>
-                    <div class="md:w-1/2 md:pl-16 text-left ml-10 md:ml-0 transition-transform duration-300 group-hover:translate-x-2">
-                        <h4 class="text-2xl font-bold text-white mb-3">2. Build & Integrate</h4>
-                        <p class="text-slate-400 text-base leading-relaxed">Next, I build a structured and documented system, cleanly integrating GoHighLevel with your ad accounts, existing software, and necessary AI tools.</p>
+                    <div class="md:w-1/2 md:pl-16 text-left ml-8 sm:ml-10 md:ml-0 transition-transform duration-300 md:group-hover:translate-x-2">
+                        <h4 class="text-xl lg:text-2xl font-bold text-white mb-2 lg:mb-3">2. Build & Integrate</h4>
+                        <p class="text-slate-400 text-sm lg:text-base leading-relaxed">Next, I build a structured and documented system, cleanly integrating GoHighLevel with your ad accounts, existing software, and necessary AI tools.</p>
                     </div>
                 </div>
 
-                <div class="relative flex flex-col md:flex-row items-center mb-20 w-full group">
-                    <div class="md:w-1/2 md:pr-16 text-left md:text-right ml-10 md:ml-0 transition-transform duration-300 group-hover:-translate-x-2">
-                        <h4 class="text-2xl font-bold text-white mb-3">3. Test & Refine</h4>
-                        <p class="text-slate-400 text-base leading-relaxed">Before launching, I thoroughly test all workflows, API endpoints, and message deliverability to ensure everything runs smoothly in a live environment.</p>
+                <div class="relative flex flex-col md:flex-row items-start md:items-center mb-16 lg:mb-20 w-full group">
+                    <div class="md:w-1/2 md:pr-16 text-left md:text-right ml-8 sm:ml-10 md:ml-0 transition-transform duration-300 md:group-hover:-translate-x-2">
+                        <h4 class="text-xl lg:text-2xl font-bold text-white mb-2 lg:mb-3">3. Test & Refine</h4>
+                        <p class="text-slate-400 text-sm lg:text-base leading-relaxed">Before launching, I thoroughly test all workflows, API endpoints, and message deliverability to ensure everything runs smoothly in a live environment.</p>
                     </div>
                     <div class="absolute left-[-9px] md:left-1/2 w-5 h-5 rounded-full bg-cyan-400 transform md:-translate-x-1/2 flex items-center justify-center z-10 shadow-[0_0_20px_rgba(34,211,238,0.8)] group-hover:scale-150 transition-transform duration-300"></div>
                     <div class="md:w-1/2 md:pl-16 hidden md:block"></div>
                 </div>
 
-                <div class="relative flex flex-col md:flex-row items-center w-full group">
+                <div class="relative flex flex-col md:flex-row items-start md:items-center w-full group">
                     <div class="md:w-1/2 md:pr-16 hidden md:block"></div>
                     <div class="absolute left-[-9px] md:left-1/2 w-5 h-5 rounded-full bg-purple-400 transform md:-translate-x-1/2 flex items-center justify-center z-10 shadow-[0_0_20px_rgba(168,85,247,0.8)] group-hover:scale-150 transition-transform duration-300"></div>
-                    <div class="md:w-1/2 md:pl-16 text-left ml-10 md:ml-0 transition-transform duration-300 group-hover:translate-x-2">
-                        <h4 class="text-2xl font-bold text-white mb-3">4. Launch & Monitor</h4>
-                        <p class="text-slate-400 text-base leading-relaxed">After launch, I monitor system performance, fix any edge cases, and ensure the reporting dashboards continue to meet your operational goals.</p>
+                    <div class="md:w-1/2 md:pl-16 text-left ml-8 sm:ml-10 md:ml-0 transition-transform duration-300 md:group-hover:translate-x-2">
+                        <h4 class="text-xl lg:text-2xl font-bold text-white mb-2 lg:mb-3">4. Launch & Monitor</h4>
+                        <p class="text-slate-400 text-sm lg:text-base leading-relaxed">After launch, I monitor system performance, fix any edge cases, and ensure the reporting dashboards continue to meet your operational goals.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="impact" class="py-24 bg-gradient-to-b from-[#030509] to-[#020306] border-t border-slate-800/50">
+    <section id="impact" class="py-20 lg:py-24 bg-gradient-to-b from-[#030509] to-[#020306] border-t border-slate-800/50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-16 reveal">
-                <div class="bg-[#030509] p-8 rounded-3xl border border-slate-800 text-center hover:border-cyan-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
-                    <div class="text-5xl lg:text-6xl font-black text-white mb-3 drop-shadow-md">70+</div>
-                    <div class="text-[10px] md:text-xs text-cyan-400 uppercase tracking-[0.2em] font-bold">Successful Projects</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 reveal">
+                <div class="bg-[#030509] p-6 lg:p-8 rounded-2xl lg:rounded-3xl border border-slate-800 text-center hover:border-cyan-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+                    <div class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-2 lg:mb-3 drop-shadow-md">70+</div>
+                    <div class="text-[9px] sm:text-[10px] md:text-xs text-cyan-400 uppercase tracking-[0.2em] font-bold">Projects</div>
                 </div>
-                <div class="bg-[#030509] p-8 rounded-3xl border border-slate-800 text-center hover:border-purple-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
-                    <div class="text-5xl lg:text-6xl font-black text-white mb-3 drop-shadow-md">4+</div>
-                    <div class="text-[10px] md:text-xs text-purple-400 uppercase tracking-[0.2em] font-bold">Years Experience</div>
+                <div class="bg-[#030509] p-6 lg:p-8 rounded-2xl lg:rounded-3xl border border-slate-800 text-center hover:border-purple-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+                    <div class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-2 lg:mb-3 drop-shadow-md">4+</div>
+                    <div class="text-[9px] sm:text-[10px] md:text-xs text-purple-400 uppercase tracking-[0.2em] font-bold">Years Exp.</div>
                 </div>
-                <div class="bg-[#030509] p-8 rounded-3xl border border-slate-800 text-center hover:border-cyan-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
-                    <div class="text-5xl lg:text-6xl font-black text-white mb-3 drop-shadow-md">10+</div>
-                    <div class="text-[10px] md:text-xs text-cyan-400 uppercase tracking-[0.2em] font-bold">Tech Certifications</div>
+                <div class="bg-[#030509] p-6 lg:p-8 rounded-2xl lg:rounded-3xl border border-slate-800 text-center hover:border-cyan-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+                    <div class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-2 lg:mb-3 drop-shadow-md">10+</div>
+                    <div class="text-[9px] sm:text-[10px] md:text-xs text-cyan-400 uppercase tracking-[0.2em] font-bold">Certifications</div>
                 </div>
-                <div class="bg-[#030509] p-8 rounded-3xl border border-slate-800 text-center hover:border-purple-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
-                    <div class="text-4xl lg:text-5xl font-black text-white mb-4 mt-2 drop-shadow-md"><i class="fas fa-globe"></i></div>
-                    <div class="text-[10px] md:text-xs text-purple-400 uppercase tracking-[0.2em] font-bold">Global Clients</div>
+                <div class="bg-[#030509] p-6 lg:p-8 rounded-2xl lg:rounded-3xl border border-slate-800 text-center hover:border-purple-500/50 transition-colors shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+                    <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-3 lg:mb-4 lg:mt-2 drop-shadow-md"><i class="fas fa-globe"></i></div>
+                    <div class="text-[9px] sm:text-[10px] md:text-xs text-purple-400 uppercase tracking-[0.2em] font-bold">Global Reach</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="techstack" class="py-32 bg-obsidian border-t border-slate-800/50 relative overflow-hidden">
+    <section id="techstack" class="py-20 lg:py-32 bg-obsidian border-t border-slate-800/50 relative overflow-hidden">
         <div class="hero-glow" style="right: -10%; left: auto;"></div>
         
         <div class="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-16">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
                 
-                <div class="lg:w-1/2 reveal">
+                <div class="lg:w-1/2 text-center lg:text-left reveal">
                     <h2 class="text-xs font-black text-cyan-400 uppercase tracking-[0.2em] mb-4">The Technical Edge</h2>
-                    <h3 class="text-4xl sm:text-5xl font-black text-white mb-8 tracking-tight text-gradient-secondary">Deep GHL Expertise, Backed by CS.</h3>
+                    <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-6 lg:mb-8 tracking-tight text-gradient-secondary">Deep GHL Expertise, Backed by CS.</h3>
                     
-                    <p class="text-slate-400 text-lg leading-relaxed mb-6 font-light">
-                        My daily focus and true expertise lie 100% in <strong class="text-white font-medium">GoHighLevel and business automation</strong>. However, having a formal degree in Computer Science gives me a unique advantage over standard CRM setup agencies.
-                    </p>
+                    <div class="text-slate-400 text-sm sm:text-base lg:text-lg leading-relaxed mb-6 lg:mb-10 font-light space-y-4">
+                        <p>
+                            My daily focus and true expertise lie 100% in <strong class="text-white font-medium">GoHighLevel and business automation</strong>. However, having a formal degree in Computer Science gives me a unique advantage over standard CRM setup agencies.
+                        </p>
+                        <p>
+                            While I don't build custom software from scratch as my main service, my hands-on experience with <strong class="text-white font-medium">Python, AWS, and AI APIs</strong> means I actually understand what's happening under the hood. When a simple Zapier connection isn't enough, I know how to use custom webhooks and advanced logic to make your systems talk to each other perfectly.
+                        </p>
+                    </div>
                     
-                    <p class="text-slate-400 text-lg leading-relaxed mb-10 font-light">
-                        While I don't build custom software from scratch as my main service, my hands-on experience with <strong class="text-white font-medium">Python, AWS, and AI APIs</strong> means I actually understand what's happening under the hood. When a simple Zapier connection isn't enough, I know how to use custom webhooks and advanced logic to make your systems talk to each other perfectly.
-                    </p>
-                    
-                    <a href="#contact" class="inline-flex items-center text-cyan-400 font-bold hover:text-white text-lg transition-colors group">
+                    <a href="#contact" class="inline-flex items-center text-cyan-400 font-bold hover:text-white text-base lg:text-lg transition-colors group">
                         Let's discuss your tech requirements <i class="fas fa-arrow-right ml-3 transform group-hover:translate-x-2 transition-transform"></i>
                     </a>
                 </div>
                 
                 <div class="lg:w-1/2 w-full reveal">
-                    <div class="b2b-card p-10 md:p-12">
-                        <div class="space-y-10">
+                    <div class="b2b-card p-6 sm:p-10 lg:p-12">
+                        <div class="space-y-8 lg:space-y-10">
                             <div>
-                                <h5 class="text-sm text-slate-300 uppercase tracking-widest font-bold mb-5 flex items-center"><i class="fas fa-bolt text-yellow-400 mr-3"></i> Core Automation Expertise</h5>
-                                <div class="flex flex-wrap gap-3">
+                                <h5 class="text-xs sm:text-sm text-slate-300 uppercase tracking-widest font-bold mb-4 lg:mb-5 flex items-center"><i class="fas fa-bolt text-yellow-400 mr-3"></i> Core Automation</h5>
+                                <div class="flex flex-wrap gap-2 sm:gap-3">
                                     <span class="tech-pill"><i class="fas fa-project-diagram mr-2 text-indigo-400"></i> n8n</span>
                                     <span class="tech-pill">Zapier</span>
-                                    <span class="tech-pill">Make (Integromat)</span>
-                                    <span class="tech-pill">GoHighLevel API</span>
+                                    <span class="tech-pill">Make</span>
+                                    <span class="tech-pill">GHL API</span>
                                 </div>
                             </div>
                             
                             <div>
-                                <h5 class="text-sm text-slate-300 uppercase tracking-widest font-bold mb-5 flex items-center"><i class="fas fa-brain text-cyan-400 mr-3"></i> Foundational IT Knowledge</h5>
-                                <div class="flex flex-wrap gap-3">
-                                    <span class="tech-pill">Agentic AI Principles</span>
+                                <h5 class="text-xs sm:text-sm text-slate-300 uppercase tracking-widest font-bold mb-4 lg:mb-5 flex items-center"><i class="fas fa-brain text-cyan-400 mr-3"></i> Foundational Knowledge</h5>
+                                <div class="flex flex-wrap gap-2 sm:gap-3">
+                                    <span class="tech-pill">Agentic AI</span>
                                     <span class="tech-pill"><i class="fab fa-aws mr-2 text-orange-400"></i> AWS</span>
-                                    <span class="tech-pill">Gemini AI</span>
+                                    <span class="tech-pill">Gemini</span>
                                     <span class="tech-pill"><i class="fab fa-python mr-2 text-blue-400"></i> Python</span>
                                 </div>
                             </div>
 
                             <div>
-                                <h5 class="text-sm text-slate-300 uppercase tracking-widest font-bold mb-5 flex items-center"><i class="fas fa-chart-line text-green-400 mr-3"></i> Management & Tracking</h5>
-                                <div class="flex flex-wrap gap-3">
+                                <h5 class="text-xs sm:text-sm text-slate-300 uppercase tracking-widest font-bold mb-4 lg:mb-5 flex items-center"><i class="fas fa-chart-line text-green-400 mr-3"></i> Tracking & Management</h5>
+                                <div class="flex flex-wrap gap-2 sm:gap-3">
                                     <span class="tech-pill"><i class="fab fa-meta mr-2 text-blue-500"></i> Meta Ads</span>
-                                    <span class="tech-pill"><i class="fab fa-google mr-2 text-red-500"></i> Google GA4</span>
+                                    <span class="tech-pill"><i class="fab fa-google mr-2 text-red-500"></i> GA4</span>
                                     <span class="tech-pill">ClickUp</span>
                                     <span class="tech-pill">Asana</span>
                                 </div>
@@ -473,103 +478,111 @@
         </div>
     </section>
 
-    <section id="contact" class="py-32 bg-[#020306] border-t border-slate-800/50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="max-w-6xl mx-auto b2b-card p-8 sm:p-16 reveal">
+    <section id="contact" class="py-20 lg:py-32 bg-[#020306] border-t border-slate-800/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-12 max-w-6xl">
+            
+            <div class="text-center mb-12 lg:mb-16 reveal">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-white tracking-tight drop-shadow-md">Ready to Streamline Your Operations?</h2>
+                <p class="text-slate-400 text-sm sm:text-base lg:text-lg font-light max-w-2xl mx-auto px-4">If manual tasks and disconnected software are slowing your team down, let's discuss how a structured CRM setup can help.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch reveal">
                 
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl sm:text-5xl font-black mb-6 text-white tracking-tight drop-shadow-md">Ready to Streamline Your Operations?</h2>
-                    <p class="text-slate-400 text-lg font-light max-w-2xl mx-auto">If manual tasks and disconnected software are slowing your team down, let's discuss how a structured CRM setup can help.</p>
-                </div>
-
-                <div class="grid lg:grid-cols-5 gap-16">
-                    <div class="lg:col-span-2 space-y-8">
+                <div class="b2b-card p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl lg:text-3xl font-bold text-white mb-4">Let's Connect</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8">
+                            Whether you're looking to scale your business with custom CRM workflows, need advanced automation architecture, or want to discuss an AI integration, I'm always open to meaningful conversations.
+                        </p>
+                        
                         <div class="space-y-6">
-                            <a href="mailto:abdulmanan.swe@gmail.com" class="flex items-center group bg-[#030509] p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-colors shadow-lg">
-                                <div class="w-14 h-14 rounded-xl bg-slate-900 flex items-center justify-center mr-5 group-hover:bg-cyan-500/20 transition-colors border border-transparent group-hover:border-cyan-500/30">
-                                    <i class="fas fa-envelope text-xl text-cyan-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-1">Direct Email</p>
-                                    <p class="text-sm font-bold text-slate-200">abdulmanan.swe@gmail.com</p>
-                                </div>
-                            </a>
-                            
-                            <a href="https://www.linkedin.com/in/abdul-manan-a89b9b27b" target="_blank" class="flex items-center group bg-[#030509] p-5 rounded-2xl border border-slate-800 hover:border-purple-500/50 transition-colors shadow-lg">
-                                <div class="w-14 h-14 rounded-xl bg-slate-900 flex items-center justify-center mr-5 group-hover:bg-purple-500/20 transition-colors border border-transparent group-hover:border-purple-500/30">
-                                    <i class="fab fa-linkedin-in text-xl text-purple-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-1">LinkedIn Network</p>
-                                    <p class="text-sm font-bold text-slate-200">Connect with me</p>
-                                </div>
-                            </a>
-
-                            <div class="flex items-center group bg-[#030509] p-5 rounded-2xl border border-slate-800 shadow-lg cursor-default">
-                                <div class="w-14 h-14 rounded-xl bg-slate-900 flex items-center justify-center mr-5">
-                                    <i class="fas fa-globe text-xl text-slate-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-1">Location</p>
-                                    <p class="text-sm font-bold text-slate-200">Faisalabad, PK (Global Remote)</p>
-                                </div>
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-envelope text-xl text-cyan-400 w-6 text-center"></i>
+                                <a href="mailto:abdulmanan.swe@gmail.com" class="text-slate-200 text-sm sm:text-base font-medium hover:text-cyan-400 transition-colors break-all">
+                                    abdulmanan.swe@gmail.com
+                                </a>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-map-marker-alt text-xl text-purple-400 w-6 text-center"></i>
+                                <span class="text-slate-200 text-sm sm:text-base font-medium"></span>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="flex space-x-4 mt-12">
+                        <a href="https://www.linkedin.com/in/abdul-manan-a89b9b27b" target="_blank" aria-label="LinkedIn" class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#030509]/50 border border-slate-700/50 hover:border-purple-500 hover:bg-purple-500/10 transition-all text-slate-300 hover:text-purple-400 text-xl shadow-inner">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" target="_blank" aria-label="Github" class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#030509]/50 border border-slate-700/50 hover:border-cyan-500 hover:bg-cyan-500/10 transition-all text-slate-300 hover:text-cyan-400 text-xl shadow-inner">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
 
-                    <form id="contact-form" class="lg:col-span-3 space-y-5 relative">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <input type="text" id="name" placeholder="Your Name or Company" required
-                                class="w-full bg-[#030509] border border-slate-800 rounded-xl px-5 py-4 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all font-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
-                            
-                            <input type="email" id="email" placeholder="Work Email Address" required
-                                class="w-full bg-[#030509] border border-slate-800 rounded-xl px-5 py-4 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all font-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
+                <div class="b2b-card p-6 sm:p-8 lg:p-10">
+                    <form id="contact-form" class="space-y-5 lg:space-y-6 relative flex flex-col h-full">
+                        
+                        <div>
+                            <label for="name" class="block text-xs font-bold tracking-widest text-slate-400 uppercase mb-2 ml-1">Name</label>
+                            <input type="text" id="name" placeholder="Your name" required
+                                class="w-full bg-[#030509]/80 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner placeholder-slate-600">
                         </div>
                         
-                        <textarea id="message" rows="5" placeholder="What current challenges or systems would you like to improve?" required
-                            class="w-full bg-[#030509] border border-slate-800 rounded-xl px-5 py-4 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all font-medium resize-none shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"></textarea>
+                        <div>
+                            <label for="email" class="block text-xs font-bold tracking-widest text-slate-400 uppercase mb-2 ml-1">Email</label>
+                            <input type="email" id="email" placeholder="your.email@example.com" required
+                                class="w-full bg-[#030509]/80 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner placeholder-slate-600">
+                        </div>
                         
-                        <div id="form-status" class="hidden text-sm font-bold text-center mt-3 p-3 rounded-xl transition-all duration-300"></div>
+                        <div class="flex-grow">
+                            <label for="message" class="block text-xs font-bold tracking-widest text-slate-400 uppercase mb-2 ml-1">Message</label>
+                            <textarea id="message" rows="4" placeholder="Tell me about your project or current challenges..." required
+                                class="w-full h-32 lg:h-40 bg-[#030509]/80 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none shadow-inner placeholder-slate-600"></textarea>
+                        </div>
+                        
+                        <div id="form-status" class="hidden text-sm font-bold text-center mt-2 p-3 rounded-xl transition-all duration-300"></div>
 
-                        <button type="submit" id="submit-btn" class="w-full btn-solid py-4 mt-2 text-base">
-                            <span id="btn-text">Send Message</span> <i id="btn-icon" class="fas fa-paper-plane ml-3"></i>
+                        <button type="submit" id="submit-btn" class="w-full btn-gradient-form py-4 mt-2 rounded-xl text-sm tracking-widest font-black uppercase flex items-center justify-center group">
+                            <span id="btn-text">Send Message</span> 
+                            <i id="btn-icon" class="fas fa-paper-plane ml-3 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
                         </button>
                     </form>
                 </div>
+                
             </div>
         </div>
     </section>
 
-    <footer class="pt-16 pb-8 bg-[#030509] border-t border-slate-800">
+    <footer class="pt-12 pb-8 bg-[#030509] border-t border-slate-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 border-b border-slate-800 pb-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-10 border-b border-slate-800 pb-10">
                 <div>
-                    <h6 class="text-white text-xs font-bold mb-4 uppercase tracking-[0.2em]">GHL Architecture</h6>
-                    <ul class="space-y-3 text-xs text-slate-500">
+                    <h6 class="text-white text-[10px] sm:text-xs font-bold mb-4 uppercase tracking-[0.2em]">GHL Architecture</h6>
+                    <ul class="space-y-3 text-[10px] sm:text-xs text-slate-500">
                         <li class="hover:text-cyan-400 transition-colors cursor-default">GoHighLevel CRM Setup</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">SaaS Configuration & Snapshots</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">Sales Funnel Implementation</li>
                     </ul>
                 </div>
                 <div>
-                    <h6 class="text-white text-xs font-bold mb-4 uppercase tracking-[0.2em]">Automation Setup</h6>
-                    <ul class="space-y-3 text-xs text-slate-500">
+                    <h6 class="text-white text-[10px] sm:text-xs font-bold mb-4 uppercase tracking-[0.2em]">Automation Setup</h6>
+                    <ul class="space-y-3 text-[10px] sm:text-xs text-slate-500">
                         <li class="hover:text-cyan-400 transition-colors cursor-default">GoHighLevel Workflow Design</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">Zapier & n8n Integrations</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">Automated Technical Support</li>
                     </ul>
                 </div>
                 <div>
-                    <h6 class="text-white text-xs font-bold mb-4 uppercase tracking-[0.2em]">Marketing & AI</h6>
-                    <ul class="space-y-3 text-xs text-slate-500">
+                    <h6 class="text-white text-[10px] sm:text-xs font-bold mb-4 uppercase tracking-[0.2em]">Marketing & AI</h6>
+                    <ul class="space-y-3 text-[10px] sm:text-xs text-slate-500">
                         <li class="hover:text-cyan-400 transition-colors cursor-default">Email & SMS Campaign Setup</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">GHL AI Agents & Chatbots</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">Community & Membership Setup</li>
                     </ul>
                 </div>
                 <div>
-                    <h6 class="text-white text-xs font-bold mb-4 uppercase tracking-[0.2em]">Web & Funnels</h6>
-                    <ul class="space-y-3 text-xs text-slate-500">
+                    <h6 class="text-white text-[10px] sm:text-xs font-bold mb-4 uppercase tracking-[0.2em]">Web & Funnels</h6>
+                    <ul class="space-y-3 text-[10px] sm:text-xs text-slate-500">
                         <li class="hover:text-cyan-400 transition-colors cursor-default">GoHighLevel Website Design</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">High-Converting Landing Pages</li>
                         <li class="hover:text-cyan-400 transition-colors cursor-default">Client Dashboards</li>
@@ -579,10 +592,10 @@
 
             <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
                 <div class="mb-4 md:mb-0">
-                    <div class="text-lg font-black text-white tracking-[0.3em] uppercase drop-shadow-md">Abdul Manan</div>
-                    <div class="text-[10px] text-cyan-400 font-bold mt-2 uppercase tracking-[0.3em]">Software Engineer & GHL Automation Specialist</div>
+                    <div class="text-base sm:text-lg font-black text-white tracking-[0.3em] uppercase drop-shadow-md">Abdul Manan</div>
+                    <div class="text-[9px] sm:text-[10px] text-cyan-400 font-bold mt-2 uppercase tracking-[0.3em]">Software Engineer & GHL Automation Specialist</div>
                 </div>
-                <div class="text-slate-600 text-[10px] uppercase font-bold tracking-[0.2em]">
+                <div class="text-slate-600 text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em]">
                     © <span id="current-year"></span> All rights reserved.
                 </div>
             </div>
@@ -673,11 +686,11 @@
                 statusDiv.classList.add('hidden');
                 
                 try {
-                    // 👇 REPLACE THIS URL WITH YOUR n8n OR GHL WEBHOOK URL 👇
-                    const WEBHOOK_URL = "http://localhost:5678/webhook/portfolio-contact"; 
+                    // 👇 REPLACE THIS URL WITH YOUR LIVE GHL WEBHOOK URL 👇
+                    const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/2rr1ZMXoj0KiRr0DpL4t/webhook-trigger/3794a0cb-3108-4b0d-b9b1-70c8be72c676"; 
                     
                     const response = await fetch(WEBHOOK_URL, {
-                        method: "POST",
+                        method: "POST", 
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ 
                             name: name, 
@@ -687,8 +700,6 @@
                         })
                     });
 
-                    // Note: If testing locally with n8n/make, you might get CORS errors unless configured properly.
-                    // Usually, webhooks return a 200 status. We check for success here.
                     if (response.ok || response.type === 'opaque') {
                         statusDiv.textContent = "Message sent successfully! I will be in touch shortly.";
                         statusDiv.className = "text-sm font-bold text-center mt-3 p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 block";
@@ -697,16 +708,14 @@
                         throw new Error('Webhook failed');
                     }
                 } catch (error) {
-                    // If the webhook fails (or you haven't put your URL in yet), it fails gracefully.
                     console.error("Form submission error:", error);
-                    statusDiv.innerHTML = "Oops! The automation is being updated. <br/> Please email me directly at <a href='mailto:abdulmanan.swe@gmail.com' class='underline'>abdulmanan.swe@gmail.com</a>";
+                    statusDiv.innerHTML = "Oops! The automation is updating. <br/> Please email me directly at <a href='mailto:abdulmanan.swe@gmail.com' class='underline hover:text-red-300'>abdulmanan.swe@gmail.com</a>";
                     statusDiv.className = "text-sm font-bold text-center mt-3 p-3 rounded-xl bg-red-500/10 text-red-400 border border-red-500/30 block";
                 } finally {
                     // Reset Button State
                     btnText.textContent = "Send Message";
-                    btnIcon.className = "fas fa-paper-plane ml-3";
+                    btnIcon.className = "fas fa-paper-plane ml-3 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform";
                     
-                    // Hide status message after 8 seconds
                     setTimeout(() => {
                         statusDiv.classList.add('hidden');
                     }, 8000);
